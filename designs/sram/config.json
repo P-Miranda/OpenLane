@@ -1,0 +1,17 @@
+{
+    "DESIGN_NAME": "sram",
+    "VERILOG_FILES": "dir::src/*.v",
+    "CLOCK_PORT": "clk",
+    "CLOCK_PERIOD": 10.0,
+    "DESIGN_IS_CORE": true,
+    
+    "DIE_AREA": "0 0 6000 6000",
+    "FP_CORE_UTIL": 30,
+    "PL_TARGET_DENSITY": 0.35,
+
+    "MACRO_PLACEMENT_CFG": "dir::macro_placement.cfg",
+
+    "EXTRA_LEFS":      "dir::macros/*.lef",
+    "EXTRA_GDS_FILES": "dir::macros/*.gds",
+    "VERILOG_FILES_BLACKBOX": "dir::bb/*.v"
+}
