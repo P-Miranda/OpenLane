@@ -1,5 +1,5 @@
 `timescale 1 ns / 1 ps
-`include "defines.vh"
+`include "global_defines.vh"
 `include "system.vh"
 `include "iob_intercon.vh"
 
@@ -9,6 +9,8 @@ module boot_ctr
    input                      rst,
    output                     cpu_rst,
    output                     boot,
+
+   `include "bootrom_port.vh"
 
    //cpu interface
    input                      cpu_valid,
@@ -102,21 +104,8 @@ module boot_ctr
    assign sram_addr = sram_w_addr<<2;
    assign sram_wdata = rom_r_rdata;
 
-   //
-   //INSTANTIATE ROM
-   //
-   iob_rom_sp
-     #(
-       .DATA_W(`DATA_W),
-       .ADDR_W(`BOOTROM_ADDR_W-2),
-       .HEXFILE("boot.hex")
-       )
-   sp_rom0 
-     (
-      .clk(clk),
-      .r_en(rom_r_valid),
-      .addr(rom_r_addr),
-      .r_data(rom_r_rdata)
-      );
+   assign bootrom_r_en = rom_r_valid;
+   assign bootrom_addr = rom_r_addr;
+   assign rom_r_rdata = bootrom_r_data;
 
 endmodule

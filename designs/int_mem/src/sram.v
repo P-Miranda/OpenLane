@@ -1,12 +1,13 @@
 `timescale 1ns / 1ps
-`include "defines.vh"
+`include "global_defines.vh"
+`include "system.vh"
 
-module sram #(
-              parameter HEXFILE = "none"
-	      )
-   (
+module sram
+    (
     input                    clk,
     input                    rst,
+
+    `include "sram_port.vh"
 
     // intruction bus
     input                    i_valid,
@@ -23,32 +24,22 @@ module sram #(
     input [`DATA_W/8-1:0]    d_wstrb,
     output [`DATA_W-1:0]     d_rdata,
     output reg               d_ready
+
     );
 
-   iob_ram_dp_be
-     #(
-       .HEXFILE(HEXFILE),
-       .ADDR_W(`SRAM_ADDR_W-2),
-       .DATA_W(`DATA_W)
-       )
-   main_mem_byte
-     (
-      .clk   (clk),
+    // data port
+    assign sram_enA = d_valid;
+    assign sram_addrA = d_addr;
+    assign sram_weA = d_wstrb;
+    assign sram_dinA = d_wdata;
+    assign d_rdata = sram_doutA;
 
-      // data port
-      .enA   (d_valid),
-      .addrA (d_addr),
-      .weA   (d_wstrb),
-      .dinA  (d_wdata),
-      .doutA (d_rdata),
-
-      // instruction port
-      .enB   (i_valid),
-      .addrB (i_addr),
-      .weB   (i_wstrb),
-      .dinB  (i_wdata),
-      .doutB (i_rdata)
-      );
+    // instruction port
+    assign sram_enB = i_valid;
+    assign sram_addrB = i_addr;
+    assign sram_weB = i_wstrb;
+    assign sram_dinB = i_wdata;
+    assign i_rdata = sram_doutB;
 
    // reply with ready 
    always @(posedge clk, posedge rst)

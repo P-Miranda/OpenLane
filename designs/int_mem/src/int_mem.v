@@ -1,5 +1,5 @@
 `timescale 1 ns / 1 ps
-`include "defines.vh"
+`include "global_defines.vh"
 `include "system.vh"
 `include "iob_intercon.vh"
   
@@ -15,6 +15,9 @@ module int_mem
     output               boot,
     output               cpu_reset,
     
+    `include "sram_port.vh"
+    `include "bootrom_port.vh"
+
     //instruction bus
     input [`REQ_W-1:0]   i_req,
     output [`RESP_W-1:0] i_resp,
@@ -76,6 +79,8 @@ module int_mem
         .rst(rst),
         .cpu_rst(cpu_reset),
         .boot(boot),
+
+        `include "bootrom_portmap.vh"
         
         //cpu slave interface
         //no address bus since single address
@@ -150,14 +155,13 @@ module int_mem
    //
    // INSTANTIATE RAM
    //
-   sram
-`ifdef SRAM_INIT
-        #(.HEXFILE("firmware"))
-`endif
-   int_sram 
+   sram int_sram 
      (
       .clk           (clk),
       .rst           (rst),
+
+      // memory ports
+      `include "sram_portmap.vh"
       
       //instruction bus
       .i_valid       (ram_i_req[`valid(0)]),

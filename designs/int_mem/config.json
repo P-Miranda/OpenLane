@@ -4,24 +4,7 @@
     "CLOCK_PORT": "clk",
     "CLOCK_PERIOD": 10.0,
     "DESIGN_IS_CORE": true,
-    
-    "DIE_AREA": "0 0 1600 1600",
-    "FP_CORE_UTIL": 50,
-    "PL_TARGET_DENSITY": 0.55,
 
-    "VDD_NETS": "vccd1",
-    "GND_NETS": "vssd1",
-
-    "FP_PDN_MACRO_HOOKS": "int_sram.main_mem_byte.sram1 vccd1 vssd1 vccd1 vssd1",
-
-    "MACRO_PLACEMENT_CFG": "dir::macro_placement.cfg",
-
-    "EXTRA_LEFS":      "/openlane/designs/int_mem/macros/sky130_sram_4kbyte_1rw1r_32x1024_8.lef",
-    "EXTRA_GDS_FILES": "/openlane/designs/int_mem/macros/sky130_sram_4kbyte_1rw1r_32x1024_8.gds",
-    "EXTRA_LIBS":      "/openlane/designs/int_mem/macros/sky130_sram_4kbyte_1rw1r_32x1024_8_TT_1p8V_25C.lib",
-    "VERILOG_FILES_BLACKBOX": "dir::bb/*.v",
-
-    "MAGIC_DRC_USE_GDS": false,
-    "QUIT_ON_MAGIC_DRC": false,
-    "RUN_LAYOUT_XOR": false
+    "FP_SIZING": "absolute",
+    "DIE_AREA": "0 0 600 600"
 }

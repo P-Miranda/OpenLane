@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-`include "defines.vh"
+`include "global_defines.vh"
 `include "iob_intercon.vh"
 
 module iob_split
